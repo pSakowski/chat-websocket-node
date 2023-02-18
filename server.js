@@ -8,7 +8,7 @@ const port = 8000;
 app.use(express.static(path.join(__dirname, 'client')));
 
 // Set up a route to serve the index.html file
-app.get('/', (req, res) => {
+app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'client', 'index.html'));
 });
 
