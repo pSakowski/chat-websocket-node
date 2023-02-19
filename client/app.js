@@ -1,3 +1,9 @@
+const socket = io();
+
+socket.on('message', ({ author, content }) => {
+  addMessage(author, content);
+});
+
 // Reference to the login form
 const loginForm = document.querySelector('#welcome-form');
 
@@ -29,8 +35,8 @@ const login = (e) => {
   }
 };
 
-const sendMessage = (event) => {
-  event.preventDefault();
+const sendMessage = (e) => {
+  e.preventDefault();
 
   const messageContent = messageContentInput.value;
 
@@ -40,6 +46,7 @@ const sendMessage = (event) => {
   }
 
   addMessage(userName, messageContent);
+  socket.emit('message', { author: 'John Doe', content: 'Lorem Ipsum' });
   messageContentInput.value = '';
 };
 
@@ -64,4 +71,4 @@ const addMessage = (author, content) => {
 }
 
 loginForm.addEventListener('submit', login);
-addMessageForm.addEventListener("submit", (e) => sendMessage(e));
+addMessageForm.addEventListener('submit', sendMessage);
